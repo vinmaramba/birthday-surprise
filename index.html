@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You ❤️</title>
+
+<style>
+body {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ffe6eb, #fff5f7);
+  margin: 0;
+  overflow: hidden;
+}
+
+.container {
+  max-width: 400px;
+  margin: 80px auto;
+  position: relative;
+  z-index: 2;
+}
+
+img {
+  width: 220px;
+  margin: 15px 0;
+}
+
+h1 { font-size: 28px; }
+h2 { font-weight: normal; }
+
+button {
+  font-size: 18px;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+#next, #yes {
+  background-color: #ff4d6d;
+  color: white;
+}
+
+#no {
+  background-color: #ccc;
+  position: absolute;
+}
+
+/* 💖 Floating hearts */
+.heart {
+  position: absolute;
+  color: #ff4d6d;
+  font-size: 20px;
+  animation: float 6s linear infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh); opacity: 1; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎵 Background Music -->
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container" id="content"></div>
+
+<script>
+let step = 0;
+
+const scenes = [
+
+  `
+  <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+  <h1>Hi… 😅</h1>
+  <h2>Happy Birthday ❤️</h2>
+  `,
+
+  `
+  <img src="https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif">
+  <h2>Hindi ako marunong sa ganito…</h2>
+  <h2>pero nag effort ako 😭</h2>
+  `,
+
+  `
+  <img src="https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif">
+  <h2>Gusto ko lang sabihin…</h2>
+  <h2>nakikita ko lahat 🥺</h2>
+  `,
+
+  `
+  <img src="https://media.giphy.com/media/3oriO6qJiXajN0TyDu/giphy.gif">
+  <h2>lalo na kay Yuna…</h2>
+  <h1>ang galing mo maging mama ❤️</h1>
+  `,
+
+  `
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <h2>Hindi ko man nasasabi palagi…</h2>
+  <h2>pero sobrang proud ako sayo 😌</h2>
+  `,
+
+  `
+  <img src="https://media.giphy.com/media/5GoVLqeAOo6PK/giphy.gif">
+  <h2>Gusto kitang bawiin kahit saglit…</h2>
+  <h2>tayo lang 😌</h2>
+  `,
+
+  `
+  <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+  <h1>So… 😅</h1>
+  <h1>Will you go out on a date with me?</h1>
+
+  <button id="yes" onclick="yesClicked()">YES ❤️</button>
+  <button id="no" onmouseover="moveNo()">No 😅</button>
+  `
+];
+
+function showScene() {
+  document.getElementById("content").innerHTML =
+    scenes[step] +
+    (step < scenes.length - 1
+      ? '<br><button id="next" onclick="next()">Next →</button>'
+      : '');
+}
+
+function next() {
+  step++;
+  showScene();
+}
+
+let size = 18;
+
+function moveNo() {
+  const noBtn = document.getElementById("no");
+
+  let x = Math.random() * window.innerWidth * 0.6;
+  let y = Math.random() * window.innerHeight * 0.6;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+
+  const yesBtn = document.getElementById("yes");
+  size += 8;
+  yesBtn.style.fontSize = size + "px";
+}
+
+function yesClicked() {
+  window.location.href = "yes.html";
+}
+
+/* 💖 Generate floating hearts */
+function createHearts() {
+  const heart = document.createElement("div");
+  heart.classList.add("heart");
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+  document.body.appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 6000);
+}
+
+setInterval(createHearts, 300);
+
+showScene();
+</script>
+
+</body>
+</html>
